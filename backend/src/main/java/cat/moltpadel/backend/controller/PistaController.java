@@ -22,4 +22,12 @@ public class PistaController {
     public Pista crearPista(@RequestBody Pista pista) {
         return pistaService.crearPista(pista);
     }
+    @PutMapping("/{id}")
+    public Pista editarPista(@PathVariable Long id, @RequestBody Pista nova) {
+        return pistaService.editarPista(nova, id);
+    }
+    @PatchMapping("/{id}/estat")
+    public Pista estatPista(@PathVariable Long id, @RequestParam boolean activa) {
+        return pistaService.estatPista(id, activa);
+    }
 }

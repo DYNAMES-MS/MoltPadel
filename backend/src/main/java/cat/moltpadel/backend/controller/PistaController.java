@@ -1,8 +1,8 @@
 package cat.moltpadel.backend.controller;
 
-import cat.moltpadel.backend.model.Pista;
 import cat.moltpadel.backend.service.PistaService;
 import org.springframework.web.bind.annotation.*;
+import cat.moltpadel.backend.model.Pista;
 
 import java.util.List;
 

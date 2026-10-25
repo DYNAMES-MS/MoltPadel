@@ -1,6 +1,7 @@
 package cat.moltpadel.backend.exception;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,6 +19,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ParametreIncorrecteException.class)
     public String handlerParametreIncorrecte(ParametreIncorrecteException ex) {
         return ex.getMessage();
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public String handlerCredencialsIncorrectes(BadCredentialsException ex) {
+        return "Email o contrasenya incorrectes";
     }
 
 

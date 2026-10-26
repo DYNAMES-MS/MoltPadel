@@ -5,7 +5,6 @@ import cat.moltpadel.backend.exception.ParametreIncorrecteException;
 import cat.moltpadel.backend.model.Pista;
 import cat.moltpadel.backend.repository.PistaRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -25,7 +24,6 @@ public class PistaService {
     }
 
     public Pista crearPista(Pista pista) {
-
         if (pista.getNom() == null || pista.getNom().isBlank()) {
             throw new ParametreIncorrecteException("Paràmetre: Nom és obligatori");
         }
@@ -62,6 +60,7 @@ public class PistaService {
     public Pista estatPista(Long id, boolean estat) {
         Pista pista = pistaRepository.findById(id).orElseThrow(() -> new NoTrobatException("Pista amb ID:" + id + " no existeix"));
         pista.setActiva(estat);
+
         return pistaRepository.save(pista);
     }
 }

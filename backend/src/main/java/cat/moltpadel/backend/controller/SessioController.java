@@ -4,7 +4,6 @@ import cat.moltpadel.backend.security.SessioRequest;
 import cat.moltpadel.backend.security.SessioResponse;
 import cat.moltpadel.backend.security.TokenService;
 import cat.moltpadel.backend.service.SessioService;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,12 +21,7 @@ public class SessioController {
 
     @PostMapping("/login")
     public SessioResponse iniciarSessio(@RequestBody SessioRequest request) {
-
-        Authentication authLogin = sessioService.auth(
-                request.email(),
-                request.contrasenya()
-        );
-
+        Authentication authLogin = sessioService.auth(request.email(), request.contrasenya());
         String token = tokenService.generarToken(authLogin);
 
         return new SessioResponse(token);

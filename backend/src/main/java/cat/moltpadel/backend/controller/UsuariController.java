@@ -14,14 +14,10 @@ public class UsuariController {
     public UsuariController(UsuariService usuariService) {
         this.usuariService = usuariService;
     }
+
     @PostMapping("/registre")
     public ResponseEntity<?> registrarUsuari(@RequestBody RegistrarUsuariRequest request) {
-
-        usuariService.registrarUsuari(
-                request.nom(),
-                request.email(),
-                request.contrasenya()
-        );
+        usuariService.registrarUsuari(request.nom(), request.email(), request.contrasenya());
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

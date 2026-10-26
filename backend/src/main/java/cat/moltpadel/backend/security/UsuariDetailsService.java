@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @NullMarked
 public class UsuariDetailsService implements UserDetailsService {
-
     private final UsuariRepository usuariRepository;
 
     public UsuariDetailsService(UsuariRepository usuariRepository) {
@@ -21,7 +20,6 @@ public class UsuariDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
         Usuari usuari = usuariRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuari no existeix"));
 
         return User.builder().username(usuari.getEmail()).password(usuari.getSecret()).roles(usuari.getRol().name()).build();

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.IniciController" prefWidth="1280" prefHeight="720">
+
+    <VBox alignment="CENTER" spacing="15" maxWidth="400" maxHeight="-Infinity">
+        <Label text="Administració"/>
+        <Button text="Gestió d'usuaris" prefWidth="250"/>
+        <Button text="Gestió de pistes" prefWidth="250"/>
+        <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="250"/>
+    </VBox>
+
+</StackPane>

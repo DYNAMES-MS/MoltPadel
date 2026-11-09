@@ -44,7 +44,7 @@ public class PistaService {
     public Pista editarPista(Pista nova, Long id) {
         Pista pista = pistaRepository.findById(id).orElseThrow(() -> new NoTrobatException("Pista amb ID:" + id + " no existeix"));
 
-        if (nova.getNom() == null || pista.getNom().isBlank()) {
+        if (nova.getNom() == null || nova.getNom().isBlank()) {
             throw new ParametreIncorrecteException("Paràmetre: Nom és obligatori");
         }
 

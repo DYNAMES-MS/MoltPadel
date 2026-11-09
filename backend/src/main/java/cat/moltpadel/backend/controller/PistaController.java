@@ -1,9 +1,11 @@
 package cat.moltpadel.backend.controller;
 
-import cat.moltpadel.backend.security.DisponibilitatResponse;
+import cat.moltpadel.backend.dto.DisponibilitatResponse;
 import cat.moltpadel.backend.service.DisponibilitatService;
 import cat.moltpadel.backend.service.PistaService;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import cat.moltpadel.backend.model.Pista;
 import java.time.LocalDate;
@@ -28,18 +30,21 @@ public class PistaController {
     }
 
     @PostMapping
-    public Pista crearPista(@RequestBody Pista pista) {
-        return pistaService.crearPista(pista);
+    public ResponseEntity<Pista> crearPista(@RequestBody Pista pista) {
+        Pista novaPista = pistaService.crearPista(pista);
+        return ResponseEntity.status(HttpStatus.CREATED).body(novaPista);
     }
 
     @PutMapping("/{id}")
-    public Pista editarPista(@PathVariable Long id, @RequestBody Pista nova) {
-        return pistaService.editarPista(nova, id);
+    public ResponseEntity<Void> editarPista(@PathVariable Long id, @RequestBody Pista nova) {
+        pistaService.editarPista(nova, id);
+        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{id}/estat")
-    public Pista estatPista(@PathVariable Long id, @RequestParam boolean activa) {
-        return pistaService.estatPista(id, activa);
+    public ResponseEntity<Void> estatPista(@PathVariable Long id, @RequestParam boolean activa) {
+        pistaService.estatPista(id, activa);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/disponibilitat")

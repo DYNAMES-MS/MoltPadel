@@ -15,6 +15,10 @@ public class SessioActual {
         token = null;
     }
 
+    public static String getToken() {
+        return token;
+    }
+
     public static String getRol() {
         if (token == null) {
             return null;

@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.IniciController" prefWidth="1280" prefHeight="720">
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.AdminController" fx:id="borderId" prefWidth="1280" prefHeight="720">
 
-    <VBox alignment="CENTER" spacing="15" maxWidth="400" maxHeight="-Infinity">
-        <Label text="Administració"/>
-        <Button text="Gestió d'usuaris" prefWidth="250"/>
-        <Button text="Gestió de pistes" prefWidth="250"/>
-        <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="250"/>
-    </VBox>
+    <left>
+        <VBox spacing="15" prefWidth="200">
+            <Label text="MoltPadel"/>
+            <Button text="Inici" onAction="#inici" prefWidth="150"/>
+            <Button text="Gestió de pistes" onAction="#pistes" prefWidth="150"/>
+            <Button text="Gestió d'usuaris" onAction="#usuaris" prefWidth="150"/>
+            <Button text="Reserves" prefWidth="150"/>
+            <Region VBox.vgrow="ALWAYS"/>
+            <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="150"/>
+        </VBox>
+    </left>
 
-</StackPane>
+    <center>
+        <VBox fx:id="boxId" spacing="15">
+            <Label text="Administració"/>
+            <Label text="Benvingut al panell de control d'administració"/>
+        </VBox>
+    </center>
+
+</BorderPane>

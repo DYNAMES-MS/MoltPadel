@@ -5,7 +5,7 @@ import cat.moltpadel.backend.model.Pista;
 import cat.moltpadel.backend.model.Reserva;
 import cat.moltpadel.backend.repository.PistaRepository;
 import cat.moltpadel.backend.repository.ReservaRepository;
-import cat.moltpadel.backend.security.DisponibilitatResponse;
+import cat.moltpadel.backend.dto.DisponibilitatResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.*;

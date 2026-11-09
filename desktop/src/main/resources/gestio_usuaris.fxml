@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioUsuarisController" spacing="15">
+    <Label text="Gestió d'usuaris"/>
+
+    <HBox spacing="10">
+        <Button text="Crear usuari" onAction="#crearUsuari"/>
+        <Button fx:id="editarBotoId" text="Editar usuari" onAction="#editarUsuari"/>
+        <Button fx:id="sociBotoId" text="Editar soci" onAction="#editarSoci"/>
+    </HBox>
+
+    <TextField fx:id="consultaId" promptText="Cerca usuaris..." maxWidth="400"/>
+    <Label fx:id="missatgeId"/>
+
+    <TableView fx:id="taulaUsuarisId" prefHeight="500">
+        <columns>
+            <TableColumn fx:id="idColumna" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nomColumna" text="Nom" prefWidth="250"/>
+            <TableColumn fx:id="emailColumna" text="Correu electrònic" prefWidth="250"/>
+            <TableColumn fx:id="rolColumna" text="Rol" prefWidth="100"/>
+            <TableColumn fx:id="sociColumna" text="Soci" prefWidth="100"/>
+        </columns>
+    </TableView>
+
+</VBox>

@@ -1,7 +1,7 @@
 package cat.moltpadel.backend.controller;
 
-import cat.moltpadel.backend.security.SessioRequest;
-import cat.moltpadel.backend.security.SessioResponse;
+import cat.moltpadel.backend.dto.SessioRequest;
+import cat.moltpadel.backend.dto.SessioResponse;
 import cat.moltpadel.backend.security.TokenService;
 import cat.moltpadel.backend.service.SessioService;
 import org.springframework.security.core.Authentication;

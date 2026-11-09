@@ -1,6 +1,5 @@
 package cat.moltpadel.desktop.service;
 
-import tools.jackson.core.JacksonException;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
 import java.net.URI;
@@ -31,16 +30,12 @@ public class SessioService {
             if (response.statusCode() != 200) {
                 throw new RuntimeException("Error de servidor: " + response.statusCode());
             }
-            try {
-                String token = mapper.readTree(response.body()).path("token").asString("");
-                if (token.isBlank()) {
-                    throw new RuntimeException("Token no existeix");
-                }
-                return token;
 
-            } catch (JacksonException e) {
-                throw new RuntimeException("Error de format JSON", e);
+            String token = mapper.readTree(response.body()).path("token").asString("");
+            if (token.isBlank()) {
+                throw new RuntimeException("Token no existeix");
             }
+            return token;
         });
     }
 }

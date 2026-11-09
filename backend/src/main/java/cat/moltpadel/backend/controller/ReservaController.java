@@ -1,7 +1,7 @@
 package cat.moltpadel.backend.controller;
 
-import cat.moltpadel.backend.security.ReservaRequest;
-import cat.moltpadel.backend.security.ReservaResponse;
+import cat.moltpadel.backend.dto.ReservaRequest;
+import cat.moltpadel.backend.dto.ReservaResponse;
 import cat.moltpadel.backend.model.Reserva;
 import cat.moltpadel.backend.service.ReservaService;
 import org.jspecify.annotations.NullMarked;

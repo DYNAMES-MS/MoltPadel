@@ -37,6 +37,7 @@ public class SeguretatConfig {
                         .requestMatchers(HttpMethod.POST, "/api/usuaris/registre", "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/pistes", "/api/pistes/**").permitAll()
                         .requestMatchers("/api/pistes", "/api/pistes/**").hasRole("ADMIN")
+                        .requestMatchers("/api/usuaris", "/api/usuaris/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))

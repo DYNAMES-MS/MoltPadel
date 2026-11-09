@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioPistesController" spacing="15">
+    <Label text="Gestió de pistes"/>
+
+    <HBox spacing="10">
+        <Button text="Crear pista" onAction="#crearPista"/>
+        <Button fx:id="editarBotoId" text="Editar pista" onAction="#editarPista"/>
+        <Button fx:id="estatBotoId" text="Canviar l'estat" onAction="#canviarEstat"/>
+    </HBox>
+
+    <Label fx:id="missatgeId"/>
+
+    <TableView fx:id="taulaPistesId" prefHeight="500">
+        <columns>
+            <TableColumn fx:id="idColumna" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nomColumna" text="Nom" prefWidth="250"/>
+            <TableColumn fx:id="tipusColumna" text="Tipus" prefWidth="150"/>
+            <TableColumn fx:id="estatColumna" text="Estat" prefWidth="150"/>
+        </columns>
+    </TableView>
+
+</VBox>

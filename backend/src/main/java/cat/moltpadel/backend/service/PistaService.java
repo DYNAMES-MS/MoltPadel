@@ -5,6 +5,7 @@ import cat.moltpadel.backend.exception.ParametreIncorrecteException;
 import cat.moltpadel.backend.model.Pista;
 import cat.moltpadel.backend.repository.PistaRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
@@ -17,10 +18,6 @@ public class PistaService {
 
     public List<Pista> getPistes() {
         return pistaRepository.findAll();
-    }
-
-    public List<Pista> getPistesActives() {
-        return pistaRepository.findByActivaTrue();
     }
 
     public Pista crearPista(Pista pista) {
@@ -41,8 +38,9 @@ public class PistaService {
         return pistaRepository.save(novaPista);
     }
 
-    public Pista editarPista(Pista nova, Long id) {
-        Pista pista = pistaRepository.findById(id).orElseThrow(() -> new NoTrobatException("Pista amb ID:" + id + " no existeix"));
+    @Transactional
+    public void editarPista(Pista nova, Long id) {
+        Pista pista = pistaRepository.findEditarById(id).orElseThrow(() -> new NoTrobatException("Pista no existeix"));
 
         if (nova.getNom() == null || nova.getNom().isBlank()) {
             throw new ParametreIncorrecteException("Paràmetre: Nom és obligatori");
@@ -54,13 +52,14 @@ public class PistaService {
         pista.setNom(nova.getNom());
         pista.setTipus(nova.getTipus());
 
-        return pistaRepository.save(pista);
+        pistaRepository.save(pista);
     }
 
-    public Pista estatPista(Long id, boolean estat) {
-        Pista pista = pistaRepository.findById(id).orElseThrow(() -> new NoTrobatException("Pista amb ID:" + id + " no existeix"));
+    @Transactional
+    public void canviarEstat(Long id, boolean estat) {
+        Pista pista = pistaRepository.findEditarById(id).orElseThrow(() -> new NoTrobatException("Pista no existeix"));
         pista.setActiva(estat);
 
-        return pistaRepository.save(pista);
+        pistaRepository.save(pista);
     }
 }

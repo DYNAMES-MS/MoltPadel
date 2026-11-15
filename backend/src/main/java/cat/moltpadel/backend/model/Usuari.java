@@ -2,6 +2,9 @@ package cat.moltpadel.backend.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 @Entity
 public class Usuari {
     @Id
@@ -11,13 +14,23 @@ public class Usuari {
     @Column(nullable = false, unique = true)
     private String email;
     private String secret;
-    private boolean soci;
+    @Enumerated(EnumType.STRING)
+    private TipusSoci tipusSoci;
+    private LocalDate iniciSoci;
+    private LocalDate fiSoci;
+    @Column(nullable = false)
+    private boolean actiu = true;
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
     public enum Rol {
         ADMIN,
         USER
+    }
+
+    public enum TipusSoci {
+        MENSUAL,
+        ANUAL
     }
 
     public Long getId() {
@@ -37,7 +50,15 @@ public class Usuari {
     }
 
     public boolean isSoci() {
-        return soci;
+        return sociVigent(LocalDate.now(ZoneId.of("Europe/Madrid")));
+    }
+
+    public boolean sociVigent(LocalDate data) {
+        if (tipusSoci == null || iniciSoci == null || fiSoci == null) {
+            return false;
+        }
+
+        return !data.isBefore(iniciSoci) && data.isBefore(fiSoci);
     }
 
     public Rol getRol() {
@@ -56,11 +77,39 @@ public class Usuari {
         this.secret = secret;
     }
 
-    public void setSoci(boolean soci) {
-        this.soci = soci;
-    }
-
     public void setRol(Rol rol) {
         this.rol = rol;
+    }
+
+    public boolean isActiu() {
+        return actiu;
+    }
+
+    public void setActiu(boolean actiu) {
+        this.actiu = actiu;
+    }
+
+    public TipusSoci getTipusSoci() {
+        return tipusSoci;
+    }
+
+    public void setTipusSoci(TipusSoci tipusSoci) {
+        this.tipusSoci = tipusSoci;
+    }
+
+    public LocalDate getIniciSoci() {
+        return iniciSoci;
+    }
+
+    public void setIniciSoci(LocalDate iniciSoci) {
+        this.iniciSoci = iniciSoci;
+    }
+
+    public LocalDate getFiSoci() {
+        return fiSoci;
+    }
+
+    public void setFiSoci(LocalDate fiSoci) {
+        this.fiSoci = fiSoci;
     }
 }

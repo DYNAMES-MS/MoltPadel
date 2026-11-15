@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.oauth2.core.DelegatingOAuth2TokenValidator;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationConverter;
@@ -29,21 +30,23 @@ public class SeguretatConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .formLogin(AbstractHttpConfigurer::disable)
-                .httpBasic(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/usuaris/registre", "/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/pistes", "/api/pistes/**").permitAll()
-                        .requestMatchers("/api/pistes", "/api/pistes/**").hasRole("ADMIN")
-                        .requestMatchers("/api/usuaris", "/api/usuaris/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
-                )
-                .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                );
-
+            .csrf(AbstractHttpConfigurer::disable)
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .formLogin(AbstractHttpConfigurer::disable)
+            .httpBasic(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(auth -> auth
+                    .requestMatchers(HttpMethod.POST, "/api/usuaris/registre", "/api/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/api/pistes/disponibilitat", "/api/pistes/disponibilitat/franja").permitAll()
+                    .requestMatchers("/api/pistes", "/api/pistes/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/usuaris/soci").authenticated()
+                    .requestMatchers(HttpMethod.POST, "/api/usuaris/soci").authenticated()
+                    .requestMatchers("/api/usuaris", "/api/usuaris/**").hasRole("ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/api/reserves").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+            )
+            .exceptionHandling(ex -> ex.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED)))
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
+            );
         return http.build();
     }
 
@@ -72,13 +75,10 @@ public class SeguretatConfig {
     }
 
     @Bean
-    public JwtDecoder jwtDecoder(SecretKey secretKey) {
-        NimbusJwtDecoder decoder = NimbusJwtDecoder
-                .withSecretKey(secretKey)
-                .macAlgorithm(MacAlgorithm.HS256)
-                .build();
+    public JwtDecoder jwtDecoder(SecretKey secretKey, ValidarUsuariActiu validarUsuariActiu) {
+        NimbusJwtDecoder decoder = NimbusJwtDecoder.withSecretKey(secretKey).macAlgorithm(MacAlgorithm.HS256).build();
+        decoder.setJwtValidator(new DelegatingOAuth2TokenValidator<>(JwtValidators.createDefaultWithIssuer("moltpadel"), validarUsuariActiu));
 
-        decoder.setJwtValidator(JwtValidators.createDefaultWithIssuer("moltpadel"));
         return decoder;
     }
 

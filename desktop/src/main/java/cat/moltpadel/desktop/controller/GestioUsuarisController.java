@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.controller;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import cat.moltpadel.desktop.model.Usuari;
 import cat.moltpadel.desktop.service.UsuariService;
 import javafx.application.Platform;
@@ -12,6 +13,7 @@ import java.util.concurrent.CompletableFuture;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.scene.layout.VBox;
 
 public class GestioUsuarisController {
 
@@ -34,16 +36,22 @@ public class GestioUsuarisController {
     private TableColumn<Usuari, String> sociColumna;
 
     @FXML
-    private Button editarBotoId;
+    private TableColumn<Usuari, String> estatColumna;
 
     @FXML
-    private Button sociBotoId;
+    private Button estatBotoId;
+
+    @FXML
+    private Button editarBotoId;
 
     @FXML
     private Label missatgeId;
 
     @FXML
     private TextField consultaId;
+
+    @FXML
+    private VBox gestioId;
 
     private final UsuariService usuariService = new UsuariService();
     private final ObservableList<Usuari> llistaUsuaris = FXCollections.observableArrayList();
@@ -56,8 +64,9 @@ public class GestioUsuarisController {
         emailColumna.setCellValueFactory(new PropertyValueFactory<>("email"));
         rolColumna.setCellValueFactory(new PropertyValueFactory<>("rol"));
         sociColumna.setCellValueFactory(new PropertyValueFactory<>("estatSoci"));
+        estatColumna.setCellValueFactory(new PropertyValueFactory<>("estatCompte"));
+        estatBotoId.disableProperty().bind(taulaUsuarisId.getSelectionModel().selectedItemProperty().isNull());
         editarBotoId.disableProperty().bind(taulaUsuarisId.getSelectionModel().selectedItemProperty().isNull());
-        sociBotoId.disableProperty().bind(taulaUsuarisId.getSelectionModel().selectedItemProperty().isNull());
         taulaUsuarisId.setItems(usuarisFiltrats);
         consultaId.textProperty().addListener((obs, oldValue, newValue) -> {
             String consulta = newValue.trim().toLowerCase();
@@ -74,12 +83,17 @@ public class GestioUsuarisController {
     }
 
     private void carregarUsuaris() {
+        gestioId.setDisable(true);
+        missatgeId.setText("");
+
         usuariService.getUsuaris().whenComplete((usuaris, error) -> Platform.runLater(() -> {
+            gestioId.setDisable(false);
+
             if (error != null) {
-                missatgeId.setText("Error: No s'han pogut carregar els usuaris");
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'han pogut carregar els usuaris"));
                 return;
             }
-            missatgeId.setText("");
+
             llistaUsuaris.setAll(usuaris);
         }));
     }
@@ -96,13 +110,32 @@ public class GestioUsuarisController {
     }
 
     @FXML
-    private void editarSoci() {
+    private void canviarEstatCompte() {
         Usuari usuari = taulaUsuarisId.getSelectionModel().getSelectedItem();
-        boolean estat = !usuari.isSoci();
 
-        usuariService.editarSoci(usuari.getId(), estat).whenComplete((v, error) -> Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Estat de l'usuari");
+
+        if (!usuari.isActiu()) {
+            alert.setHeaderText("Vols reactivar aquest usuari?");
+        } else {
+            alert.setHeaderText("Vols donar de baixa aquest usuari?");
+        }
+
+        alert.setContentText(usuari.getNom() + " - " + usuari.getEmail());
+
+        Optional<ButtonType> boto = alert.showAndWait();
+        if (boto.isEmpty() || boto.get() != ButtonType.OK) {
+            return;
+        }
+
+        gestioId.setDisable(true);
+        missatgeId.setText("");
+
+        usuariService.canviarEstatCompte(usuari.getId(), !usuari.isActiu()).whenComplete((v, error) -> Platform.runLater(() -> {
             if (error != null) {
-                missatgeId.setText("Error: No s'ha pogut editar l'estat de soci");
+                gestioId.setDisable(false);
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'ha pogut canviar l'estat del compte"));
                 return;
             }
             carregarUsuaris();
@@ -134,25 +167,27 @@ public class GestioUsuarisController {
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
         Button botoOK = (Button) dialog.getDialogPane().lookupButton(ButtonType.OK);
-        botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && contrasenya.getText().length() < 10)
-        );
+        botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && (contrasenya.getText().isBlank() || contrasenya.getText().length() < 10)));
 
         nom.textProperty().addListener((obs, oldValue, newValue) -> {
-            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && contrasenya.getText().length() < 10));
+            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && (contrasenya.getText().isBlank() || contrasenya.getText().length() < 10)));
         });
 
         email.textProperty().addListener((obs, oldValue, newValue) -> {
-            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && contrasenya.getText().length() < 10));
+            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && (contrasenya.getText().isBlank() || contrasenya.getText().length() < 10)));
         });
 
         contrasenya.textProperty().addListener((obs, oldValue, newValue) -> {
-            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && contrasenya.getText().length() < 10));
+            botoOK.setDisable(nom.getText().isBlank() || email.getText().isBlank() || (usuari == null && (contrasenya.getText().isBlank() || contrasenya.getText().length() < 10)));
         });
 
         Optional<ButtonType> boto = dialog.showAndWait();
         if (boto.isEmpty() || boto.get() != ButtonType.OK) {
             return;
         }
+
+        gestioId.setDisable(true);
+        missatgeId.setText("");
 
         CompletableFuture<Void> future;
         if (usuari == null) {
@@ -163,7 +198,8 @@ public class GestioUsuarisController {
 
         future.whenComplete((v, error) -> Platform.runLater(() -> {
             if (error != null) {
-                missatgeId.setText("Error: No s'ha pogut desar l'usuari");
+                gestioId.setDisable(false);
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'ha pogut desar l'usuari"));
                 return;
             }
             carregarUsuaris();

@@ -26,10 +26,6 @@ public class DisponibilitatService {
 
     @Transactional(readOnly = true)
     public List<DisponibilitatResponse> getDisponibilitatSetmanal(LocalDate data) {
-        if (data == null) {
-            throw new ParametreIncorrecteException("Paràmetre: Data és obligatori");
-        }
-
         LocalDate dilluns = data.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate diumenge = dilluns.plusDays(6);
 

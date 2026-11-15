@@ -4,13 +4,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioUsuarisController" spacing="15">
+<VBox fx:id="gestioId" xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioUsuarisController" spacing="15">
     <Label text="Gestió d'usuaris"/>
 
     <HBox spacing="10">
         <Button text="Crear usuari" onAction="#crearUsuari"/>
         <Button fx:id="editarBotoId" text="Editar usuari" onAction="#editarUsuari"/>
-        <Button fx:id="sociBotoId" text="Editar soci" onAction="#editarSoci"/>
+        <Button fx:id="estatBotoId" text="Donar de baixa / Reactivar" onAction="#canviarEstatCompte"/>
     </HBox>
 
     <TextField fx:id="consultaId" promptText="Cerca usuaris..." maxWidth="400"/>
@@ -23,6 +23,7 @@
             <TableColumn fx:id="emailColumna" text="Correu electrònic" prefWidth="250"/>
             <TableColumn fx:id="rolColumna" text="Rol" prefWidth="100"/>
             <TableColumn fx:id="sociColumna" text="Soci" prefWidth="100"/>
+            <TableColumn fx:id="estatColumna" text="Estat" prefWidth="100"/>
         </columns>
     </TableView>
 

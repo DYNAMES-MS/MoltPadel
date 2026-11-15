@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.controller;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import cat.moltpadel.desktop.service.SessioService;
 import cat.moltpadel.desktop.security.SessioActual;
 import javafx.application.Platform;
@@ -12,7 +13,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.Objects;
+
 import javafx.event.ActionEvent;
+import javafx.scene.layout.VBox;
 
 public class SessioController {
 
@@ -28,6 +31,9 @@ public class SessioController {
     @FXML
     private Button entraBotoId;
 
+    @FXML
+    private VBox formulariId;
+
     private final SessioService sessioService = new SessioService();
 
     @FXML
@@ -40,13 +46,14 @@ public class SessioController {
             return;
         }
 
-        entraBotoId.setDisable(true);
+        errorId.setText("");
+        formulariId.setDisable(true);
 
         sessioService.iniciarSessio(email, contrasenya).whenComplete((token, error) -> Platform.runLater(() -> {
-            entraBotoId.setDisable(false);
+            formulariId.setDisable(false);
 
             if (error != null) {
-                errorId.setText("Correu o contrasenya incorrectes");
+                errorId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'ha pogut iniciar sessió"));
                 return;
             }
 
@@ -55,6 +62,7 @@ public class SessioController {
 
             if (rol == null) {
                 SessioActual.eliminar();
+                errorId.setText("Error: No s'ha pogut iniciar sessió");
                 return;
             }
 
@@ -70,6 +78,7 @@ public class SessioController {
                 entraBotoId.getScene().setRoot(root);
             } catch (IOException e) {
                 SessioActual.eliminar();
+                errorId.setText("Error: No s'ha pogut iniciar sessió");
             }
         }));
     }

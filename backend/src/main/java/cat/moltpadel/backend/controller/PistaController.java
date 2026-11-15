@@ -42,8 +42,8 @@ public class PistaController {
     }
 
     @PatchMapping("/{id}/estat")
-    public ResponseEntity<Void> estatPista(@PathVariable Long id, @RequestParam boolean activa) {
-        pistaService.estatPista(id, activa);
+    public ResponseEntity<Void> canviarEstat(@PathVariable Long id, @RequestParam boolean activa) {
+        pistaService.canviarEstat(id, activa);
         return ResponseEntity.noContent().build();
     }
 

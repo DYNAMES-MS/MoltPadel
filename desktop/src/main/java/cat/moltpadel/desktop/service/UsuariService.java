@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.service;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import cat.moltpadel.desktop.model.Usuari;
 import cat.moltpadel.desktop.security.SessioActual;
 import tools.jackson.databind.JsonNode;
@@ -8,6 +9,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -23,10 +25,7 @@ public class UsuariService {
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL)).header("Authorization", "Bearer " + SessioActual.getToken()).GET().build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
-            if (response.statusCode() != 200) {
-                throw new RuntimeException("Error del servidor: " + response.statusCode());
-            }
-
+            GestorErrorsApi.validar(response, 200);
             JsonNode json = mapper.readTree(response.body());
             List<Usuari> usuaris = new ArrayList<>();
             for (JsonNode usuariJson : json) {
@@ -35,8 +34,21 @@ public class UsuariService {
                 String email = usuariJson.path("email").asString();
                 String rol = usuariJson.path("rol").asString();
                 boolean soci = usuariJson.path("soci").asBoolean();
+                boolean actiu = usuariJson.path("actiu").asBoolean();
+                String tipusSoci = null;
+                LocalDate iniciSoci = null;
+                LocalDate fiSoci = null;
+                if (usuariJson.hasNonNull("tipusSoci")) {
+                    tipusSoci = usuariJson.path("tipusSoci").asString();
+                }
+                if (usuariJson.hasNonNull("iniciSoci")) {
+                    iniciSoci = LocalDate.parse(usuariJson.path("iniciSoci").asString());
+                }
+                if (usuariJson.hasNonNull("fiSoci")) {
+                    fiSoci = LocalDate.parse(usuariJson.path("fiSoci").asString());
+                }
 
-                usuaris.add(new Usuari(id, nom, email, rol, soci));
+                usuaris.add(new Usuari(id, nom, email, rol, soci, actiu, tipusSoci, iniciSoci, fiSoci));
             }
             return usuaris;
         });
@@ -55,9 +67,7 @@ public class UsuariService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 201) {
-                throw new RuntimeException("Error creant l'usuari: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 201);
         });
     }
 
@@ -74,24 +84,66 @@ public class UsuariService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 204) {
-                throw new RuntimeException("Error editant l'usuari: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 204);
         });
     }
 
-    public CompletableFuture<Void> editarSoci(Long id, boolean soci) {
+    public CompletableFuture<Void> canviarEstatCompte(Long id, boolean actiu) {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(URL + "/" + id + "/soci?soci=" + soci))
+                .uri(URI.create(URL + "/" + id + "/estat?actiu=" + actiu))
                 .header("Authorization", "Bearer " + SessioActual.getToken())
                 .method("PATCH", HttpRequest.BodyPublishers.noBody())
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 204) {
-                throw new RuntimeException("Error canviant l'estat de soci: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 204);
         });
     }
 
+    public CompletableFuture<Usuari> getSoci() {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/soci"))
+                .header("Authorization", "Bearer " + SessioActual.getToken())
+                .GET()
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
+            GestorErrorsApi.validar(response, 200);
+            JsonNode json = mapper.readTree(response.body());
+
+            String tipusSoci = null;
+            LocalDate iniciSoci = null;
+            LocalDate fiSoci = null;
+
+            Long id = json.path("id").asLong();
+            String nom = json.path("nom").asString();
+            String email = json.path("email").asString();
+            String rol = json.path("rol").asString();
+            boolean soci = json.path("soci").asBoolean();
+            boolean actiu = json.path("actiu").asBoolean();
+            if (json.hasNonNull("tipusSoci")) {
+                tipusSoci = json.path("tipusSoci").asString();
+            }
+            if (json.hasNonNull("iniciSoci")) {
+                iniciSoci = LocalDate.parse(json.path("iniciSoci").asString());
+            }
+            if (json.hasNonNull("fiSoci")) {
+                fiSoci = LocalDate.parse(json.path("fiSoci").asString());
+            }
+
+            return new Usuari(id, nom, email, rol, soci, actiu, tipusSoci, iniciSoci, fiSoci);
+        });
+    }
+
+    public CompletableFuture<Void> activarSoci(String tipusSoci) {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/soci?tipusSoci=" + tipusSoci))
+                .header("Authorization", "Bearer " + SessioActual.getToken())
+                .POST(HttpRequest.BodyPublishers.noBody())
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
+            GestorErrorsApi.validar(response, 204);
+        });
+    }
 }

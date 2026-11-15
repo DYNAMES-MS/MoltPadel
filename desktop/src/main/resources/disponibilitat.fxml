@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.DisponibilitatController" fx:id="disponibilitatId" spacing="15" prefWidth="1280" prefHeight="720">
+
+    <Label text="Disponibilitat de pistes"/>
+
+    <HBox fx:id="consultaPublicaId" spacing="15" alignment="CENTER_LEFT" visible="false" managed="false">
+        <Button text="Tornar a l'inici" onAction="#tornarInici"/>
+        <Label text="Has d'iniciar sessió per fer reserves"/>
+    </HBox>
+
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Button fx:id="setmanaAnteriorId" text="Setmana anterior" onAction="#setmanaAnterior"/>
+        <Label fx:id="setmanaId"/>
+        <Button fx:id="setmanaSeguentId" text="Setmana següent" onAction="#setmanaSeguent"/>
+    </HBox>
+
+    <Label fx:id="missatgeId" wrapText="true"/>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
+        <GridPane fx:id="calendariId" hgap="5" vgap="5"/>
+    </ScrollPane>
+
+</VBox>

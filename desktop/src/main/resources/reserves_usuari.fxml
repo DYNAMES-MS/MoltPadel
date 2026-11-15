@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.TilePane?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.ReservesUsuariController" spacing="15">
+    <Label text="Les meves reserves"/>
+
+    <Label fx:id="missatgeId" wrapText="true"/>
+
+    <ScrollPane fitToWidth="true" minHeight="0" VBox.vgrow="ALWAYS">
+        <TilePane fx:id="reservesId" hgap="15" vgap="15" prefTileWidth="240"/>
+    </ScrollPane>
+</VBox>

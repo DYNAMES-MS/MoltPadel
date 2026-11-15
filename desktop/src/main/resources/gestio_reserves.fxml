@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioReservesController" spacing="15">
+    <Label text="Reserves del club"/>
+
+    <HBox spacing="10">
+        <Label text="Data:"/>
+        <DatePicker fx:id="dataId" editable="false" onAction="#carregarReserves"/>
+    </HBox>
+
+    <Label fx:id="missatgeId"/>
+
+    <TableView fx:id="taulaReservesId" prefHeight="500">
+        <columns>
+            <TableColumn fx:id="estatColumna" text="Estat" prefWidth="150"/>
+            <TableColumn fx:id="usuariColumna" text="Usuari" prefWidth="250"/>
+            <TableColumn fx:id="horaColumna" text="Hora" prefWidth="100"/>
+            <TableColumn fx:id="pistaColumna" text="Pista" prefWidth="220"/>
+            <TableColumn fx:id="preuColumna" text="Preu" prefWidth="130"/>
+            <TableColumn fx:id="tarifaColumna" text="Tarifa" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

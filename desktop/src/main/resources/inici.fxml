@@ -9,7 +9,7 @@
     <VBox alignment="CENTER" spacing="15" maxWidth="400" maxHeight="-Infinity">
         <Label text="Benvingut a MoltPadel"/>
         <Button fx:id="sessioBotoId" text="Inicia sessió" onAction="#obrirSessio" prefWidth="250"/>
-        <Button text="Consulta les pistes" prefWidth="250"/>
+        <Button text="Consulta les pistes" onAction="#consultarPistes" prefWidth="250"/>
     </VBox>
 
 </StackPane>

@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.controller;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import cat.moltpadel.desktop.model.Pista;
 import cat.moltpadel.desktop.service.PistaService;
 import javafx.application.Platform;
@@ -7,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
@@ -36,6 +38,9 @@ public class GestioPistesController {
     @FXML
     private Label missatgeId;
 
+    @FXML
+    private VBox gestioId;
+
     private final PistaService pistaService = new PistaService();
 
     @FXML
@@ -50,12 +55,17 @@ public class GestioPistesController {
     }
 
     private void carregarPistes() {
+        gestioId.setDisable(true);
+        missatgeId.setText("");
+
         pistaService.getPistes().whenComplete((pistes, error) -> Platform.runLater(() -> {
+            gestioId.setDisable(false);
+
             if (error != null) {
-                missatgeId.setText("Error: No s'han pogut carregar les pistes");
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'han pogut carregar les pistes"));
                 return;
             }
-            missatgeId.setText("");
+
             taulaPistesId.getItems().setAll(pistes);
         }));
     }
@@ -76,11 +86,16 @@ public class GestioPistesController {
         Pista pista = taulaPistesId.getSelectionModel().getSelectedItem();
         boolean estat = !pista.isActiva();
 
+        gestioId.setDisable(true);
+        missatgeId.setText("");
+
         pistaService.canviarEstat(pista.getId(), estat).whenComplete((v, error) -> Platform.runLater(() -> {
             if (error != null) {
-                missatgeId.setText("Error: No s'ha pogut canviar l'estat de la pista");
+                gestioId.setDisable(false);
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'ha pogut canviar l'estat de la pista"));
                 return;
             }
+
             carregarPistes();
         }));
     }
@@ -120,6 +135,9 @@ public class GestioPistesController {
             return;
         }
 
+        gestioId.setDisable(true);
+        missatgeId.setText("");
+
         CompletableFuture<Void> future;
         if (pista == null) {
             future = pistaService.crearPista(nom.getText().trim(), tipus.getValue());
@@ -129,7 +147,8 @@ public class GestioPistesController {
 
         future.whenComplete((v, error) -> Platform.runLater(() -> {
             if (error != null) {
-                missatgeId.setText("Error: No s'ha pogut desar la pista");
+                gestioId.setDisable(false);
+                missatgeId.setText(GestorErrorsApi.getMissatge(error, "Error: No s'ha pogut desar la pista"));
                 return;
             }
             carregarPistes();

@@ -13,7 +13,7 @@
             <Button text="Inici" onAction="#inici" prefWidth="150"/>
             <Button text="Gestió de pistes" onAction="#pistes" prefWidth="150"/>
             <Button text="Gestió d'usuaris" onAction="#usuaris" prefWidth="150"/>
-            <Button text="Reserves" prefWidth="150"/>
+            <Button text="Reserves" onAction="#reserves" prefWidth="150"/>
             <Region VBox.vgrow="ALWAYS"/>
             <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="150"/>
         </VBox>

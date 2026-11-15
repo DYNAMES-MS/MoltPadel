@@ -37,6 +37,12 @@ public class AdminController {
     }
 
     @FXML
+    private void reserves() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/gestio_reserves.fxml")));
+        borderId.setCenter(root);
+    }
+
+    @FXML
     private void tancarSessio(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/inici.fxml")));
         Button boto = (Button) event.getSource();

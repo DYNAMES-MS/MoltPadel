@@ -11,5 +11,5 @@ public interface PistaRepository extends JpaRepository<Pista,Long> {
     List<Pista> findByActivaTrue();
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    Optional<Pista> findPerReservaById(Long id);
+    Optional<Pista> findEditarById(Long id);
 }

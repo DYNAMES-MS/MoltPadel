@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.service;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import tools.jackson.databind.ObjectMapper;
 import tools.jackson.databind.node.ObjectNode;
 import java.net.URI;
@@ -27,9 +28,7 @@ public class SessioService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
-            if (response.statusCode() != 200) {
-                throw new RuntimeException("Error de servidor: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 200);
 
             String token = mapper.readTree(response.body()).path("token").asString("");
             if (token.isBlank()) {

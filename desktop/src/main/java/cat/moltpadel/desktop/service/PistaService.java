@@ -1,5 +1,6 @@
 package cat.moltpadel.desktop.service;
 
+import cat.moltpadel.desktop.exception.GestorErrorsApi;
 import cat.moltpadel.desktop.model.Pista;
 import cat.moltpadel.desktop.security.SessioActual;
 import tools.jackson.databind.JsonNode;
@@ -12,6 +13,9 @@ import java.net.http.HttpResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import cat.moltpadel.desktop.model.Disponibilitat;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class PistaService {
 
@@ -20,12 +24,10 @@ public class PistaService {
     private final ObjectMapper mapper = new ObjectMapper();
 
     public CompletableFuture<List<Pista>> getPistes() {
-        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL)).GET().build();
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL)).header("Authorization", "Bearer " + SessioActual.getToken()).GET().build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
-            if (response.statusCode() != 200) {
-                throw new RuntimeException("Error de servidor: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 200);
 
             JsonNode json = mapper.readTree(response.body());
             List<Pista> pistes = new ArrayList<>();
@@ -40,6 +42,7 @@ public class PistaService {
             return pistes;
         });
     }
+
     public CompletableFuture<Void> crearPista(String nom, String tipus) {
         ObjectNode json = mapper.createObjectNode();
         json.put("nom", nom);
@@ -53,9 +56,7 @@ public class PistaService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 201) {
-                throw new RuntimeException("Error creant la pista: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 201);
         });
     }
 
@@ -72,9 +73,7 @@ public class PistaService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 204) {
-                throw new RuntimeException("Error editant la pista: " + response.statusCode());
-            }
+            GestorErrorsApi.validar(response, 204);
         });
     }
 
@@ -86,9 +85,50 @@ public class PistaService {
                 .build();
 
         return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
-            if (response.statusCode() != 204) {
-                throw new RuntimeException("Error canviant l'estat de la pista: " + response.statusCode());
+            GestorErrorsApi.validar(response, 204);
+        });
+    }
+
+    public CompletableFuture<List<Disponibilitat>> getDisponibilitat(LocalDate data) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL + "/disponibilitat?data=" + data)).GET().build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
+            GestorErrorsApi.validar(response, 200);
+
+            JsonNode json = mapper.readTree(response.body());
+            List<Disponibilitat> disponibilitat = new ArrayList<>();
+            for (JsonNode franjaJson : json) {
+                LocalDate dataFranja = LocalDate.parse(franjaJson.path("data").asString());
+                LocalTime hora = LocalTime.parse(franjaJson.path("hora").asString());
+                int disponibles = franjaJson.path("disponibles").asInt();
+                int totalPistes = franjaJson.path("totalPistes").asInt();
+                boolean caducada = franjaJson.path("caducada").asBoolean();
+
+                disponibilitat.add(new Disponibilitat(dataFranja, hora, disponibles, totalPistes, caducada));
             }
+
+            return disponibilitat;
+        });
+    }
+    public CompletableFuture<List<Pista>> getPistesDisponibles(LocalDate data, LocalTime hora) {
+        HttpRequest request = HttpRequest.newBuilder().uri(URI.create(URL + "/disponibilitat/franja?data=" + data + "&hora=" + hora)).GET().build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenApply(response -> {
+            GestorErrorsApi.validar(response, 200);
+
+            JsonNode json = mapper.readTree(response.body());
+            List<Pista> pistes = new ArrayList<>();
+
+            for (JsonNode pistaJson : json) {
+                Long id = pistaJson.path("id").asLong();
+                String nom = pistaJson.path("nom").asString();
+                String tipus = pistaJson.path("tipus").asString();
+                boolean activa = pistaJson.path("activa").asBoolean();
+
+                pistes.add(new Pista(id, nom, tipus, activa));
+            }
+
+            return pistes;
         });
     }
 }

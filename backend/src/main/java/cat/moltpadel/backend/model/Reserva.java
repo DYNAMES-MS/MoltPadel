@@ -1,6 +1,7 @@
 package cat.moltpadel.backend.model;
 
 import jakarta.persistence.*;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -16,6 +17,11 @@ public class Reserva {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstatReserva estat;
+    @Column(nullable = false)
+    private BigDecimal preu;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Tarifa tarifa = Tarifa.GENERAL;
 
     @ManyToOne
     @JoinColumn(name = "usuari_id", nullable = false)
@@ -28,6 +34,11 @@ public class Reserva {
     public enum EstatReserva {
         ACTIVA,
         CANCELADA
+    }
+
+    public enum Tarifa {
+        GENERAL,
+        SOCI
     }
 
     public Long getId() {
@@ -54,6 +65,10 @@ public class Reserva {
         return estat;
     }
 
+    public BigDecimal getPreu() {
+        return preu;
+    }
+
     public void setUsuari(Usuari usuari) {
         this.usuari = usuari;
     }
@@ -72,5 +87,17 @@ public class Reserva {
 
     public void setEstat(EstatReserva estat) {
         this.estat = estat;
+    }
+
+    public void setPreu(BigDecimal preu) {
+        this.preu = preu;
+    }
+
+    public Tarifa getTarifa() {
+        return tarifa;
+    }
+
+    public void setTarifa(Tarifa tarifa) {
+        this.tarifa = tarifa;
     }
 }

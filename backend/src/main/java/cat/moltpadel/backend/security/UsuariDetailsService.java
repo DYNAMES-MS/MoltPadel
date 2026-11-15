@@ -22,6 +22,6 @@ public class UsuariDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Usuari usuari = usuariRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Usuari no existeix"));
 
-        return User.builder().username(usuari.getEmail()).password(usuari.getSecret()).roles(usuari.getRol().name()).build();
+        return User.builder().username(usuari.getEmail()).password(usuari.getSecret()).roles(usuari.getRol().name()).disabled(!usuari.isActiu()).build();
     }
 }

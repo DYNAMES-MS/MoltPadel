@@ -13,6 +13,15 @@ public class IniciController {
     private Button sessioBotoId;
 
     @FXML
+    private void consultarPistes() throws IOException {
+        FXMLLoader loader = new FXMLLoader(Objects.requireNonNull(getClass().getResource("/disponibilitat.fxml")));
+        Parent root = loader.load();
+        DisponibilitatController controller = loader.getController();
+        controller.setConsultaPublica(true);
+        sessioBotoId.getScene().setRoot(root);
+    }
+
+    @FXML
     private void obrirSessio() throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sessio.fxml")));
         sessioBotoId.getScene().setRoot(root);

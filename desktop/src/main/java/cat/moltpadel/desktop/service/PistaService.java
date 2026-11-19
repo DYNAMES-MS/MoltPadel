@@ -19,7 +19,7 @@ import java.time.LocalTime;
 
 public class PistaService {
 
-    private static final String URL = "http://localhost:8080/api/pistes";
+    private static final String URL = "https://moltpadel-api-gucya9dzcva9fjfx.spaincentral-01.azurewebsites.net/api/pistes";
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 

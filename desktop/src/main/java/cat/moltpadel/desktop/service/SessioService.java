@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class SessioService {
 
-    private static final String URL = "http://localhost:8080/api/auth/login";
+    private static final String URL = "https://moltpadel-api-gucya9dzcva9fjfx.spaincentral-01.azurewebsites.net/api/auth/login";
 
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();

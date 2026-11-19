@@ -17,7 +17,7 @@ import tools.jackson.databind.node.ObjectNode;
 
 public class UsuariService {
 
-    private static final String URL = "http://localhost:8080/api/usuaris";
+    private static final String URL = "https://moltpadel-api-gucya9dzcva9fjfx.spaincentral-01.azurewebsites.net/api/usuaris";
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 

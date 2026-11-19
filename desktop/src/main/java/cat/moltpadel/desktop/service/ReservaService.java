@@ -20,7 +20,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class ReservaService {
 
-    private static final String URL = "http://localhost:8080/api/reserves";
+    private static final String URL = "https://moltpadel-api-gucya9dzcva9fjfx.spaincentral-01.azurewebsites.net/api/reserves";
     private final HttpClient client = HttpClient.newHttpClient();
     private final ObjectMapper mapper = new ObjectMapper();
 

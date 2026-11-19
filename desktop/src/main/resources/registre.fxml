@@ -9,7 +9,7 @@
     <VBox fx:id="formulariId" styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
         <Label text="MoltPadel" styleClass="nom-app"/>
         <Label text="Crea un compte" styleClass="titol-principal"/>
-        <TextField fx:id="nomId" promptText="Nom" maxWidth="250"/>
+        <TextField fx:id="nomId" promptText="Nom i cognoms" maxWidth="250"/>
         <TextField fx:id="emailId" promptText="Correu electrònic" maxWidth="250"/>
         <PasswordField fx:id="contrasenyaId" promptText="Contrasenya (mínim 10 caràcters)" onAction="#registrarUsuari" maxWidth="250"/>
         <Button fx:id="registreBotoId" styleClass="boto-principal" text="Crea el compte" onAction="#registrarUsuari" maxWidth="250"/>

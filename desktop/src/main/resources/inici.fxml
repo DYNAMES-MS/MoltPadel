@@ -4,12 +4,13 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.IniciController" prefWidth="1280" prefHeight="720">
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.IniciController" styleClass="pantalla-formulari" prefWidth="1280" prefHeight="720">
 
-    <VBox alignment="CENTER" spacing="15" maxWidth="400" maxHeight="-Infinity">
-        <Label text="Benvingut a MoltPadel"/>
-        <Button fx:id="sessioBotoId" text="Inicia sessió" onAction="#obrirSessio" prefWidth="250"/>
-        <Button text="Consulta les pistes" onAction="#consultarPistes" prefWidth="250"/>
+    <VBox styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
+        <Label text="Benvingut a MoltPadel" styleClass="titol-principal"/>
+        <Button fx:id="sessioBotoId" text="Inicia sessió" styleClass="boto-principal" onAction="#obrirSessio" prefWidth="250"/>
+        <Button text="Registrar-se" styleClass="boto-secundari" onAction="#obrirRegistre" prefWidth="250"/>
+        <Button text="Consulta les pistes" styleClass="boto-secundari" onAction="#consultarPistes" prefWidth="250"/>
     </VBox>
 
 </StackPane>

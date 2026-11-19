@@ -99,7 +99,6 @@ public class SociController {
     private void activarSoci(String tipusSoci) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmació de pagament");
-
         if ("MENSUAL".equals(tipusSoci)) {
             alert.setHeaderText("Processar el pagament de 99€?");
         } else {
@@ -107,7 +106,6 @@ public class SociController {
         }
 
         Optional<ButtonType> boto = alert.showAndWait();
-
         if (boto.isEmpty() || boto.get() != ButtonType.OK) {
             return;
         }

@@ -10,4 +10,6 @@ public interface UsuariRepository extends JpaRepository<Usuari, Long> {
     Optional<Usuari> findByEmail(String email);
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     Optional<Usuari> findEditarById(Long id);
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    Optional<Usuari> findEditarByEmail(String email);
 }

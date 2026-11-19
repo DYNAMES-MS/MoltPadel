@@ -146,4 +146,53 @@ public class UsuariService {
             GestorErrorsApi.validar(response, 204);
         });
     }
+
+    public CompletableFuture<Void> canviarContrasenya(String contrasenyaActual, String contrasenyaNova) {
+        ObjectNode json = mapper.createObjectNode();
+        json.put("contrasenyaActual", contrasenyaActual);
+        json.put("contrasenyaNova", contrasenyaNova);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/contrasenya"))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + SessioActual.getToken())
+                .method("PATCH", HttpRequest.BodyPublishers.ofString(json.toString()))
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
+            GestorErrorsApi.validar(response, 204);
+        });
+    }
+
+    public CompletableFuture<Void> demanarCodi(String email) {
+        ObjectNode json = mapper.createObjectNode();
+        json.put("email", email);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/recuperacio/codi"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
+            GestorErrorsApi.validar(response, 202);
+        });
+    }
+
+    public CompletableFuture<Void> restablirContrasenya(String email, String codi, String contrasenyaNova) {
+        ObjectNode json = mapper.createObjectNode();
+        json.put("email", email);
+        json.put("codi", codi);
+        json.put("contrasenyaNova", contrasenyaNova);
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(URL + "/recuperacio/restablir"))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(json.toString()))
+                .build();
+
+        return client.sendAsync(request, HttpResponse.BodyHandlers.ofString()).thenAccept(response -> {
+            GestorErrorsApi.validar(response, 204);
+        });
+    }
 }

@@ -1,0 +1,288 @@
+.root {
+    -mp-fons: #151616;
+    -mp-fons-secundari: #232526;
+    -mp-text: white;
+    -mp-taronja: #FF9334
+}
+
+.pantalla-formulari {
+    -fx-background-color: -mp-fons;
+}
+
+.pantalla-gestio,
+.pantalla-disponibilitat,
+.pantalla-reserva,
+.pantalla-soci {
+    -fx-background-color: -mp-fons;
+    -fx-padding: 25;
+    -fx-spacing: 15;
+    -fx-font-size: 14px;
+}
+
+.pantalla-reserva {
+    -fx-spacing: 20;
+}
+
+.pantalla-reserva .separator {
+    -fx-padding: 5 0;
+}
+
+.nom-app {
+    -fx-text-fill: -mp-taronja;
+    -fx-font-size: 18px;
+}
+
+.titol-principal {
+    -fx-text-fill: -mp-text;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+.titol-secundari {
+    -fx-text-fill: -mp-text;
+    -fx-font-weight: bold;
+    -fx-font-size: 15px;
+}
+
+.missatge {
+    -fx-text-fill: -mp-text;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+#estatId {
+    -fx-text-fill: -mp-text;
+    -fx-font-weight: bold;
+}
+
+.boto-principal {
+    -fx-background-color: -mp-taronja;
+}
+
+.boto-principal:hover {
+    -fx-background-color: derive(-mp-taronja, -20%);
+    -fx-cursor: hand;
+}
+
+.boto-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: -mp-taronja;
+    -fx-cursor: hand;
+}
+
+.boto-text:hover {
+    -fx-underline: true;
+}
+
+.boto-secundari,
+#reservesId .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -mp-taronja;
+    -fx-border-color: -mp-taronja;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.boto-secundari:hover,
+#reservesId .button:hover {
+    -fx-background-color: rgba(255, 155, 66, 0.12);
+    -fx-cursor: hand;
+}
+
+.formulari {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-padding: 40;
+    -fx-spacing: 15;
+    -fx-background-radius: 15;
+    -fx-font-size: 15px;
+}
+
+.formulari .text-field {
+    -fx-padding: 8;
+    -fx-focus-color: -mp-taronja;
+}
+
+.menu-lateral {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-pref-width: 250;
+    -fx-padding: 20;
+    -fx-spacing: 8;
+    -fx-font-size: 15px;
+}
+
+.menu-lateral .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: -mp-text;
+    -fx-alignment: center-left;
+    -fx-padding: 8;
+    -fx-cursor: hand;
+}
+
+.menu-lateral .button:hover {
+    -fx-background-color: derive(-mp-fons-secundari, 25%);
+    -fx-text-fill: -mp-taronja;
+}
+
+.menu-lateral .tancar-sessio {
+    -fx-text-fill: -mp-taronja;
+    -fx-underline: true;
+}
+
+.menu-lateral .nom-app {
+    -fx-padding: 0 0 20 0;
+}
+
+.pantalla-gestio .button {
+    -fx-padding: 4 10;
+}
+
+.pantalla-gestio .column-header-background,
+.pantalla-gestio .column-header,
+.pantalla-gestio .filler {
+    -fx-background-color: -mp-fons-secundari;
+}
+
+.pantalla-gestio .column-header .label {
+    -fx-text-fill: -mp-text;
+}
+
+.pantalla-gestio .column-header {
+    -fx-border-color: rgba(255, 255, 255, 0.15);
+    -fx-border-width: 0 1 0 0;
+}
+
+.pantalla-gestio .table-view {
+    -fx-background-color: -mp-fons;
+    -fx-border-color: derive(-mp-fons-secundari, 25%);
+    -fx-border-width: 1;
+}
+
+.pantalla-gestio .table-row-cell {
+    -fx-background-color: -mp-fons;
+}
+
+.pantalla-gestio .table-row-cell:filled:odd {
+    -fx-background-color: -mp-fons-secundari;
+}
+
+.pantalla-gestio .table-cell {
+    -fx-text-fill: -mp-text;
+    -fx-border-color: transparent;
+}
+
+.pantalla-gestio .table-row-cell:filled:selected {
+    -fx-background-color: -mp-taronja;
+}
+
+.pantalla-gestio .table-row-cell:filled:selected .table-cell {
+    -fx-text-fill: -mp-fons;
+}
+
+.pantalla-disponibilitat .scroll-pane,
+.pantalla-disponibilitat .scroll-pane > .viewport,
+.pantalla-reserva .scroll-pane,
+.pantalla-reserva .scroll-pane > .viewport {
+    -fx-background-color: -mp-fons;
+}
+
+.root.pantalla-disponibilitat .scroll-pane {
+    -fx-max-width: 880px;
+}
+
+#calendariId .label {
+    -fx-text-fill: -mp-text;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+#calendariId .button {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-text-fill: -mp-text;
+    -fx-max-width: Infinity;
+}
+
+#calendariId .button:hover {
+    -fx-background-color: -mp-taronja;
+    -fx-text-fill: -mp-fons;
+    -fx-cursor: hand;
+}
+
+#calendariId .button:disabled {
+    -fx-background-color: transparent;
+    -fx-text-fill: -mp-text;
+    -fx-cursor: default;
+}
+
+#interiorsId .button,
+#exteriorsId .button {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-text-fill: -mp-text;
+    -fx-border-color: derive(-mp-fons-secundari, 35%);
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-padding: 5 12;
+}
+
+#interiorsId .button:hover,
+#exteriorsId .button:hover {
+    -fx-border-color: -mp-taronja;
+}
+
+#interiorsId .pista-seleccionada,
+#exteriorsId .pista-seleccionada {
+    -fx-background-color: -mp-taronja;
+    -fx-text-fill: -mp-fons;
+    -fx-border-color: -mp-taronja;
+}
+
+#setmanaId {
+    -fx-text-fill: -mp-taronja;
+    -fx-font-weight: bold;
+}
+
+#franjaId {
+    -fx-text-fill: -mp-taronja;
+}
+
+#pistaId {
+    -fx-padding: 5 0 0 0;
+}
+
+#reservesId > VBox {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255, 155, 66, 0.60);
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-alignment: top-center;
+}
+
+#reservesId > VBox .label {
+    -fx-text-fill: -mp-text;
+}
+
+#reservesId > VBox > .label:first-child {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -mp-taronja;
+}
+
+.panell-admin {
+    -fx-background-color: -mp-fons-secundari;
+    -fx-background-radius: 8;
+    -fx-pref-width: 190;
+    -fx-min-height: 120;
+    -fx-padding: 16;
+    -fx-spacing: 6;
+}
+
+.text-admin {
+    -fx-text-fill: -mp-taronja;
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+.proxima-reserva {
+    -fx-padding: 12 0 0 0;
+}
+

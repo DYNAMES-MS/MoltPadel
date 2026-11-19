@@ -4,26 +4,32 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.UsuariController" fx:id="borderId" prefWidth="1280" prefHeight="720">
 
     <left>
-        <VBox spacing="15" prefWidth="230">
-            <Label text="MoltPadel"/>
-            <Button text="Inici" onAction="#inici" prefWidth="150"/>
-            <Button text="Consulta les pistes" onAction="#disponibilitat" prefWidth="150"/>
-            <Button text="Reserves" onAction="#reservesUsuari" prefWidth="150"/>
-            <Button text="Soci" onAction="#soci" prefWidth="150"/>
+        <VBox styleClass="menu-lateral">
+            <Label text="MoltPadel" styleClass="nom-app"/>
+            <Button text="Inici" onAction="#inici"/>
+            <Button text="Consulta les pistes" onAction="#disponibilitat" />
+            <Button text="Les meves reserves" onAction="#reservesUsuari" />
+            <Button text="Quota de soci" onAction="#soci" />
+            <Button text="Canvia la contrasenya" onAction="#canviarContrasenya"/>
             <Region VBox.vgrow="ALWAYS"/>
-            <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="150"/>
+            <Button text="Tanca sessió" onAction="#tancarSessio" styleClass="tancar-sessio"/>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="boxId" spacing="15">
-            <Label text="Benvingut!"/>
-            <Label text="Consulta i reserva pistes"/>
-        </VBox>
+        <StackPane fx:id="boxId" styleClass="pantalla-formulari">
+            <VBox styleClass="formulari" alignment="CENTER" maxWidth="480" maxHeight="-Infinity">
+                <Label text="Benvingut a MoltPadel" styleClass="titol-principal"/>
+                <Label text="La meva pròxima reserva" styleClass="titol-secundari,proxima-reserva"/>
+                <Label fx:id="missatgeId" styleClass="missatge" wrapText="true"/>
+                <Button text="Consulta les pistes" onAction="#disponibilitat" styleClass="boto-secundari"/>
+            </VBox>
+        </StackPane>
     </center>
 
 </BorderPane>

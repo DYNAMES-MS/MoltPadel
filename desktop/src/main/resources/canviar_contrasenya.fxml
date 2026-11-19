@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.CanviarContrasenyaController" styleClass="pantalla-formulari">
+
+    <VBox fx:id="formulariId" styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
+        <Label text="Canvi de la contrasenya" styleClass="titol-principal"/>
+
+        <Label text="Contrasenya actual" styleClass="missatge"/>
+        <PasswordField fx:id="actualId" maxWidth="250"/>
+
+        <Label text="Contrasenya nova (mínim 10 caràcters)" styleClass="missatge"/>
+        <PasswordField fx:id="novaId" maxWidth="250"/>
+
+        <Label text="Repeteix la contrasenya nova" styleClass="missatge"/>
+        <PasswordField fx:id="confirmacioId" onAction="#canviarContrasenya" maxWidth="250"/>
+
+        <Button text="Canvia la contrasenya" styleClass="boto-principal" onAction="#canviarContrasenya" maxWidth="250"/>
+        <Label fx:id="missatgeId" styleClass="missatge" wrapText="true" maxWidth="250"/>
+    </VBox>
+
+</StackPane>

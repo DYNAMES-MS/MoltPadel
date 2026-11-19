@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.RegistreController" styleClass="pantalla-formulari" prefWidth="1280" prefHeight="720">
+
+    <VBox fx:id="formulariId" styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
+        <Label text="MoltPadel" styleClass="nom-app"/>
+        <Label text="Crea un compte" styleClass="titol-principal"/>
+        <TextField fx:id="nomId" promptText="Nom" maxWidth="250"/>
+        <TextField fx:id="emailId" promptText="Correu electrònic" maxWidth="250"/>
+        <PasswordField fx:id="contrasenyaId" promptText="Contrasenya (mínim 10 caràcters)" onAction="#registrarUsuari" maxWidth="250"/>
+        <Button fx:id="registreBotoId" styleClass="boto-principal" text="Crea el compte" onAction="#registrarUsuari" maxWidth="250"/>
+        <Label fx:id="missatgeId" styleClass="missatge" wrapText="true" maxWidth="250"/>
+        <Button fx:id="sessioBotoId" styleClass="boto-principal" text="Inicia sessió" onAction="#obrirSessio" visible="false" managed="false" maxWidth="250"/>
+        <Button text="Torna a l'inici" styleClass="boto-secundari" onAction="#tornarInici" maxWidth="100"/>
+    </VBox>
+
+</StackPane>

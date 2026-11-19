@@ -3,25 +3,33 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.DisponibilitatController" fx:id="disponibilitatId" spacing="15" prefWidth="1280" prefHeight="720">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.DisponibilitatController" fx:id="disponibilitatId" styleClass="pantalla-disponibilitat" prefWidth="1280" prefHeight="720" alignment="TOP_CENTER">
 
-    <Label text="Disponibilitat de pistes"/>
+    <Label text="Disponibilitat de pistes" styleClass="titol-principal" maxWidth="Infinity" alignment="CENTER"/>
+    <Label fx:id="consultaPublicaId" text="Has d'iniciar sessió per fer reserves" styleClass="missatge" maxWidth="Infinity" alignment="CENTER" visible="false" managed="false"/>
+    <StackPane>
+        <HBox alignment="CENTER" maxWidth="800">
+            <Button fx:id="setmanaAnteriorId" text="Setmana anterior" onAction="#setmanaAnterior" styleClass="boto-secundari" prefWidth="130"/>
+            <Label fx:id="setmanaId" styleClass="missatge" alignment="CENTER" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+            <Button fx:id="setmanaSeguentId" text="Setmana següent" onAction="#setmanaSeguent" styleClass="boto-secundari" prefWidth="130"/>
+        </HBox>
+    </StackPane>
+    <Label fx:id="missatgeId" wrapText="true" styleClass="missatge"/>
 
-    <HBox fx:id="consultaPublicaId" spacing="15" alignment="CENTER_LEFT" visible="false" managed="false">
-        <Button text="Tornar a l'inici" onAction="#tornarInici"/>
-        <Label text="Has d'iniciar sessió per fer reserves"/>
-    </HBox>
-
-    <HBox spacing="15" alignment="CENTER_LEFT">
-        <Button fx:id="setmanaAnteriorId" text="Setmana anterior" onAction="#setmanaAnterior"/>
-        <Label fx:id="setmanaId"/>
-        <Button fx:id="setmanaSeguentId" text="Setmana següent" onAction="#setmanaSeguent"/>
-    </HBox>
-
-    <Label fx:id="missatgeId" wrapText="true"/>
-
-    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS">
-        <GridPane fx:id="calendariId" hgap="5" vgap="5"/>
+    <ScrollPane fitToWidth="true" maxWidth="1000" VBox.vgrow="ALWAYS">
+        <GridPane fx:id="calendariId" hgap="10" vgap="4" alignment="TOP_CENTER">
+            <columnConstraints>
+                <ColumnConstraints minWidth="60" prefWidth="60" halignment="LEFT"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+                <ColumnConstraints hgrow="ALWAYS" halignment="CENTER"/>
+            </columnConstraints>
+        </GridPane>
     </ScrollPane>
 
+    <Button fx:id="tornarIniciId" text="Tornar a l'inici" onAction="#tornarInici" styleClass="boto-secundari" visible="false" managed="false"/>
 </VBox>

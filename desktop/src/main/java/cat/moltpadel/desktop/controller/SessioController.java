@@ -37,6 +37,11 @@ public class SessioController {
     private final SessioService sessioService = new SessioService();
 
     @FXML
+    private void initialize() {
+        Platform.runLater(() -> formulariId.requestFocus());
+    }
+
+    @FXML
     private void iniciarSessio() {
         String email = emailId.getText().trim();
         String contrasenya = contrasenyaId.getText();
@@ -81,6 +86,12 @@ public class SessioController {
                 errorId.setText("Error: No s'ha pogut iniciar sessió");
             }
         }));
+    }
+
+    @FXML
+    private void recuperacio() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/recuperacio.fxml")));
+        formulariId.getScene().setRoot(root);
     }
 
     @FXML

@@ -3,29 +3,29 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.ConfirmarReservaController" spacing="15">
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.ConfirmarReservaController" styleClass="pantalla-reserva">
 
-    <Label text="Confirmar reserva"/>
-    <Label fx:id="franjaId"/>
+    <Label text="Confirmar reserva" styleClass="titol-principal"/>
+    <Label fx:id="franjaId" styleClass="missatge"/>
 
-    <Label text="Pistes interiors"/>
+    <Label text="Pistes interiors" styleClass="titol-secundari"/>
     <FlowPane fx:id="interiorsId" hgap="10" vgap="10"/>
 
-    <Label text="Pistes exteriors"/>
+    <Label text="Pistes exteriors" styleClass="titol-secundari"/>
     <FlowPane fx:id="exteriorsId" hgap="10" vgap="10"/>
 
     <Separator/>
 
-    <Label text="Resum de la reserva"/>
-    <Label fx:id="pistaId" text="Selecciona una pista"/>
-    <Label fx:id="tipusId"/>
-    <Label fx:id="preuId"/>
+    <Label text="Resum de la reserva" styleClass="titol-secundari"/>
+    <Label fx:id="pistaId" text="Selecciona una pista" styleClass="missatge"/>
+    <Label fx:id="tipusId" styleClass="missatge"/>
+    <Label fx:id="preuId" styleClass="missatge"/>
 
-    <Label fx:id="missatgeId" wrapText="true"/>
+    <Label fx:id="missatgeId" wrapText="true" styleClass="missatge"/>
 
     <HBox spacing="10">
-        <Button fx:id="tornarBotoId" text="Tornar a disponibilitat" onAction="#tornarDisponibilitat"/>
-        <Button fx:id="confirmarBotoId" text="Confirmar reserva" onAction="#confirmarReserva" disable="true"/>
+        <Button fx:id="tornarBotoId" text="Tornar a disponibilitat" onAction="#tornarDisponibilitat" styleClass="boto-secundari"/>
+        <Button fx:id="confirmarBotoId" text="Confirmar reserva" onAction="#confirmarReserva" disable="true" styleClass="boto-principal"/>
     </HBox>
 
 </VBox>

@@ -4,16 +4,17 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.SessioController" prefWidth="1280" prefHeight="720">
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.SessioController" styleClass="pantalla-formulari" prefWidth="1280" prefHeight="720">
 
-    <VBox fx:id="formulariId" alignment="CENTER" spacing="15" maxWidth="400" maxHeight="-Infinity" style="-fx-border-color: black; -fx-border-width: 1; -fx-border-radius: 10; -fx-padding: 25;">
-        <Label text="MoltPadel"/>
-        <Label text="Inicia sessió"/>
+    <VBox fx:id="formulariId" styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
+        <Label text="MoltPadel" styleClass="nom-app"/>
+        <Label text="Inicia sessió" styleClass="titol-principal"/>
         <TextField fx:id="emailId" promptText="Correu electrònic" onAction="#iniciarSessio" maxWidth="250"/>
         <PasswordField fx:id="contrasenyaId" promptText="Contrasenya" onAction="#iniciarSessio" maxWidth="250"/>
-        <Button fx:id="entraBotoId" text="Entra" onAction="#iniciarSessio" maxWidth="250"/>
-        <Label fx:id="errorId" wrapText="true" maxWidth="250" alignment="CENTER"/>
-        <Button text="Torna a l'inici" onAction="#tornarInici" maxWidth="100"/>
+        <Button fx:id="entraBotoId" text="Entra" onAction="#iniciarSessio" styleClass="boto-principal" maxWidth="250"/>
+        <Button text="Has oblidat la contrasenya?" onAction="#recuperacio" styleClass="boto-text" maxWidth="250"/>
+        <Label fx:id="errorId" styleClass="missatge" wrapText="true" maxWidth="250"/>
+        <Button text="Torna a l'inici" styleClass="boto-secundari" onAction="#tornarInici" maxWidth="100"/>
     </VBox>
 
 </StackPane>

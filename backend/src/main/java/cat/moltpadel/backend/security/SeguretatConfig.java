@@ -35,11 +35,12 @@ public class SeguretatConfig {
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.POST, "/api/usuaris/registre", "/api/auth/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/usuaris/registre", "/api/auth/login", "/api/usuaris/recuperacio/codi", "/api/usuaris/recuperacio/restablir").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/pistes/disponibilitat", "/api/pistes/disponibilitat/franja").permitAll()
                     .requestMatchers("/api/pistes", "/api/pistes/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/api/usuaris/soci").authenticated()
                     .requestMatchers(HttpMethod.POST, "/api/usuaris/soci").authenticated()
+                    .requestMatchers(HttpMethod.PATCH, "/api/usuaris/contrasenya").authenticated()
                     .requestMatchers("/api/usuaris", "/api/usuaris/**").hasRole("ADMIN")
                     .requestMatchers(HttpMethod.GET, "/api/reserves").hasRole("ADMIN")
                     .anyRequest().authenticated()

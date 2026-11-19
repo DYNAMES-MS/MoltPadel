@@ -4,17 +4,17 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="gestioId" xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioUsuarisController" spacing="15">
-    <Label text="Gestió d'usuaris"/>
+<VBox fx:id="gestioId" xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioUsuarisController" styleClass="pantalla-gestio">
+    <Label text="Gestió d'usuaris" styleClass="titol-principal"/>
 
     <HBox spacing="10">
-        <Button text="Crear usuari" onAction="#crearUsuari"/>
-        <Button fx:id="editarBotoId" text="Editar usuari" onAction="#editarUsuari"/>
-        <Button fx:id="estatBotoId" text="Donar de baixa / Reactivar" onAction="#canviarEstatCompte"/>
+        <Button text="Crear usuari" onAction="#crearUsuari" styleClass="boto-principal"/>
+        <Button fx:id="editarBotoId" text="Editar usuari" onAction="#editarUsuari" styleClass="boto-secundari"/>
+        <Button fx:id="estatBotoId" text="Donar de baixa / Reactivar" onAction="#canviarEstatCompte" styleClass="boto-secundari"/>
     </HBox>
 
     <TextField fx:id="consultaId" promptText="Cerca usuaris..." maxWidth="400"/>
-    <Label fx:id="missatgeId"/>
+    <Label fx:id="missatgeId" styleClass="missatge"/>
 
     <TableView fx:id="taulaUsuarisId" prefHeight="500">
         <columns>

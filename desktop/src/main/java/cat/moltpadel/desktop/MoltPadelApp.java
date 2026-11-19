@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class MoltPadelApp extends Application {
     @Override
@@ -12,6 +13,7 @@ public class MoltPadelApp extends Application {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/inici.fxml"));
         Scene scene = new Scene(loader.load());
 
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/moltpadel.css")).toExternalForm());
         stage.setTitle("MoltPadel");
         stage.setScene(scene);
         stage.show();

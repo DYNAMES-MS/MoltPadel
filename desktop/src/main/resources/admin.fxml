@@ -4,25 +4,47 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.FlowPane?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.AdminController" fx:id="borderId" prefWidth="1280" prefHeight="720">
 
     <left>
-        <VBox spacing="15" prefWidth="200">
-            <Label text="MoltPadel"/>
-            <Button text="Inici" onAction="#inici" prefWidth="150"/>
-            <Button text="Gestió de pistes" onAction="#pistes" prefWidth="150"/>
-            <Button text="Gestió d'usuaris" onAction="#usuaris" prefWidth="150"/>
-            <Button text="Reserves" onAction="#reserves" prefWidth="150"/>
+        <VBox styleClass="menu-lateral">
+            <Label text="MoltPadel" styleClass="nom-app"/>
+            <Button text="Inici" onAction="#inici"/>
+            <Button text="Gestió de pistes" onAction="#pistes"/>
+            <Button text="Gestió d'usuaris" onAction="#usuaris"/>
+            <Button text="Reserves" onAction="#reserves"/>
+            <Button text="Canvia la contrasenya" onAction="#canviarContrasenya"/>
             <Region VBox.vgrow="ALWAYS"/>
-            <Button text="Tanca sessió" onAction="#tancarSessio" prefWidth="150"/>
+            <Button text="Tanca sessió" onAction="#tancarSessio" styleClass="tancar-sessio"/>
         </VBox>
     </left>
 
     <center>
-        <VBox fx:id="boxId" spacing="15">
-            <Label text="Administració"/>
-            <Label text="Benvingut al panell de control d'administració"/>
+        <VBox fx:id="boxId" styleClass="pantalla-gestio">
+            <Label text="Panell de control Administratiu" styleClass="titol-principal"/>
+
+            <FlowPane hgap="15" vgap="15">
+                <VBox styleClass="panell-admin">
+                    <Label text="Jugadors registrats" styleClass="missatge"/>
+                    <Label fx:id="jugadorsId" text="-" styleClass="text-admin"/>
+                </VBox>
+                <VBox styleClass="panell-admin">
+                    <Label text="Socis vigents" styleClass="missatge"/>
+                    <Label fx:id="socisId" text="-" styleClass="text-admin"/>
+                </VBox>
+                <VBox styleClass="panell-admin">
+                    <Label text="Pistes en servei" styleClass="missatge"/>
+                    <Label fx:id="pistesId" text="-" styleClass="text-admin"/>
+                </VBox>
+                <VBox styleClass="panell-admin">
+                    <Label text="Reserves d’avui" styleClass="missatge"/>
+                    <Label fx:id="reservesId" text="-" styleClass="text-admin"/>
+                </VBox>
+            </FlowPane>
+
+            <Label fx:id="missatgeId" styleClass="missatge" wrapText="true"/>
         </VBox>
     </center>
 

@@ -164,4 +164,32 @@ public class UsuariService {
         usuari.setActiu(actiu);
         usuariRepository.save(usuari);
     }
+
+    @Transactional
+    public void canviarContrasenya(Long usuariId, String contrasenyaActual, String contrasenyaNova) {
+        if (contrasenyaActual == null || contrasenyaActual.isBlank()) {
+            throw new ParametreIncorrecteException("Paràmetre: Contrasenya és obligatori");
+        }
+
+        if (contrasenyaNova == null || contrasenyaNova.isBlank()) {
+            throw new ParametreIncorrecteException("Paràmetre: Contrasenya és obligatori");
+        }
+
+        if (contrasenyaNova.length() < 10) {
+            throw new ParametreIncorrecteException("Paràmetre: Contrasenya ha de tenir almenys 10 caràcters");
+        }
+
+        Usuari usuari = usuariRepository.findEditarById(usuariId).orElseThrow(() -> new NoTrobatException("Usuari no existeix"));
+
+        if (!usuari.isActiu()) {
+            throw new ParametreIncorrecteException("El compte està inactiu");
+        }
+
+        if (!passwordEncoder.matches(contrasenyaActual, usuari.getSecret())) {
+            throw new ParametreIncorrecteException("La contrasenya actual és incorrecta");
+        }
+
+        usuari.setSecret(passwordEncoder.encode(contrasenyaNova));
+        usuariRepository.save(usuari);
+    }
 }

@@ -4,16 +4,16 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="gestioId" xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioPistesController" spacing="15">
-    <Label text="Gestió de pistes"/>
+<VBox fx:id="gestioId" xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioPistesController" styleClass="pantalla-gestio">
+    <Label text="Gestió de pistes" styleClass="titol-principal"/>
 
     <HBox spacing="10">
-        <Button text="Crear pista" onAction="#crearPista"/>
-        <Button fx:id="editarBotoId" text="Editar pista" onAction="#editarPista"/>
-        <Button fx:id="estatBotoId" text="Canviar l'estat" onAction="#canviarEstat"/>
+        <Button text="Crear pista" onAction="#crearPista" styleClass="boto-principal"/>
+        <Button fx:id="editarBotoId" text="Editar pista" onAction="#editarPista" styleClass="boto-secundari"/>
+        <Button fx:id="estatBotoId" text="Canviar l'estat" onAction="#canviarEstat" styleClass="boto-secundari"/>
     </HBox>
 
-    <Label fx:id="missatgeId"/>
+    <Label fx:id="missatgeId" styleClass="missatge"/>
 
     <TableView fx:id="taulaPistesId" prefHeight="500">
         <columns>

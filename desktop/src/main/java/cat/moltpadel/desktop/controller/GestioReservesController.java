@@ -55,6 +55,8 @@ public class GestioReservesController {
         estatColumna.setCellValueFactory(new PropertyValueFactory<>("estat"));
         tarifaColumna.setCellValueFactory(new PropertyValueFactory<>("tarifa"));
         dataId.setValue(LocalDate.now(ZoneId.of("Europe/Madrid")));
+        dataId.setOnAction(event -> carregarReserves());
+        carregarReserves();
     }
 
     @FXML

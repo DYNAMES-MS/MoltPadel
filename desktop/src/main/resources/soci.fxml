@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.SociController" spacing="15">
-    <Label text="Soci de MoltPadel"/>
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.SociController" styleClass="pantalla-formulari">
 
-    <Label fx:id="estatId"/>
-    <Label fx:id="tipusId"/>
-    <Label fx:id="iniciId"/>
-    <Label fx:id="fiId"/>
+    <VBox styleClass="formulari" alignment="CENTER" maxWidth="480" maxHeight="-Infinity">
+        <Label text="Soci de MoltPadel" styleClass="titol-principal"/>
+        <Label text="Fent-te soci, pots tenir fins a 3 reserves actives per 0 €" styleClass="missatge"/>
+        <Label fx:id="estatId" styleClass="titol-secundari"/>
+        <Label fx:id="tipusId" styleClass="missatge"/>
+        <Label fx:id="iniciId" styleClass="missatge"/>
+        <Label fx:id="fiId" styleClass="missatge"/>
+        <Label fx:id="missatgeId" wrapText="true" styleClass="missatge"/>
 
-    <Label text="Quota mensual: 99€ - Quota anual: 1.100€"/>
-    <Label text="Fent-te soci, pots tenir fins a 3 reserves actives per 0€"/>
+        <HBox spacing="25" alignment="CENTER">
+            <Button fx:id="mensualBotoId" text="Activar mensual  99 €" onAction="#activarMensual" disable="true" styleClass="boto-secundari"/>
+            <Button fx:id="anualBotoId" text="Activar anual  1.100 €" onAction="#activarAnual" disable="true" styleClass="boto-secundari"/>
+        </HBox>
+    </VBox>
 
-    <HBox spacing="10">
-        <Button fx:id="mensualBotoId" text="Activar mensual" onAction="#activarMensual" disable="true"/>
-        <Button fx:id="anualBotoId" text="Activar anual" onAction="#activarAnual" disable="true"/>
-    </HBox>
-
-    <Label fx:id="missatgeId" wrapText="true"/>
-</VBox>
+</StackPane>

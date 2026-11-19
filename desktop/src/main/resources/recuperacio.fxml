@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.RecuperacioController" styleClass="pantalla-formulari" prefWidth="1280" prefHeight="720">
+
+    <VBox fx:id="formulariId" styleClass="formulari" alignment="CENTER" maxWidth="400" maxHeight="-Infinity">
+
+        <Label text="Recupera la contrasenya" styleClass="titol-principal"/>
+
+        <VBox fx:id="peticioId" alignment="CENTER" spacing="10">
+            <Label text="Correu electrònic del compte" styleClass="missatge"/>
+            <TextField fx:id="emailId" onAction="#demanarCodi" maxWidth="250"/>
+            <Button text="Envia el codi" styleClass="boto-principal" onAction="#demanarCodi" maxWidth="250"/>
+        </VBox>
+
+        <VBox fx:id="restablimentId" alignment="CENTER" spacing="15" visible="false" managed="false">
+            <Label text="Codi de 6 dígits" styleClass="missatge"/>
+            <TextField fx:id="codiId" maxWidth="250"/>
+            <Label text="Contrasenya nova (mínim 10 caràcters)" styleClass="missatge"/>
+            <PasswordField fx:id="novaId" maxWidth="250"/>
+            <Label text="Repeteix la contrasenya nova" styleClass="missatge"/>
+            <PasswordField fx:id="confirmacioId" onAction="#restablirContrasenya" maxWidth="250"/>
+            <Button text="Restableix la contrasenya" styleClass="boto-principal" onAction="#restablirContrasenya" maxWidth="250"/>
+        </VBox>
+
+        <Label fx:id="missatgeId" styleClass="missatge" maxWidth="250" wrapText="true"/>
+        <Button text="Torna a iniciar sessió" styleClass="boto-secundari" onAction="#tornarSessio" maxWidth="150"/>
+    </VBox>
+
+</StackPane>

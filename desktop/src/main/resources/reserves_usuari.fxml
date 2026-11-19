@@ -4,12 +4,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.TilePane?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.ReservesUsuariController" spacing="15">
-    <Label text="Les meves reserves"/>
-
-    <Label fx:id="missatgeId" wrapText="true"/>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.ReservesUsuariController" styleClass="pantalla-reserva" alignment="TOP_CENTER">
+    <Label text="Les meves reserves" styleClass="titol-principal"/>
+    <Label fx:id="missatgeId" wrapText="true" styleClass="missatge"/>
 
     <ScrollPane fitToWidth="true" minHeight="0" VBox.vgrow="ALWAYS">
-        <TilePane fx:id="reservesId" hgap="15" vgap="15" prefTileWidth="240"/>
+        <TilePane fx:id="reservesId" hgap="15" vgap="15" prefTileWidth="240" alignment="TOP_CENTER"/>
     </ScrollPane>
 </VBox>

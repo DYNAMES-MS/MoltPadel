@@ -26,4 +26,10 @@ public class IniciController {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/sessio.fxml")));
         sessioBotoId.getScene().setRoot(root);
     }
+
+    @FXML
+    private void obrirRegistre() throws IOException {
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/registre.fxml")));
+        sessioBotoId.getScene().setRoot(root);
+    }
 }

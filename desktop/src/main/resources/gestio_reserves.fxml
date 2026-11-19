@@ -4,15 +4,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioReservesController" spacing="15">
-    <Label text="Reserves del club"/>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="cat.moltpadel.desktop.controller.GestioReservesController" styleClass="pantalla-gestio">
+    <Label text="Reserves del club" styleClass="titol-principal"/>
 
-    <HBox spacing="10">
-        <Label text="Data:"/>
-        <DatePicker fx:id="dataId" editable="false" onAction="#carregarReserves"/>
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Data:" styleClass="missatge"/>
+        <DatePicker fx:id="dataId" editable="false"/>
     </HBox>
 
-    <Label fx:id="missatgeId"/>
+    <Label fx:id="missatgeId" styleClass="missatge"/>
 
     <TableView fx:id="taulaReservesId" prefHeight="500">
         <columns>
